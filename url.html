@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>URL Shortener</title>
+    <!-- Connect to url.css instead of style.css -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='url.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>🔗 Simple URL Shortener</h2>
+        <form method="POST">
+            <input type="text" name="longUrl" placeholder="Enter long URL" required>
+            <button type="submit">Shorten</button>
+        </form>
+
+        <h3>History</h3>
+        <ul>
+            {% for u in urls %}
+                <li>
+                    <a href="/{{ u.shortId }}" target="_blank">
+                        {{ request.host }}/{{ u.shortId }}
+                    </a> → {{ u.longUrl }} | Clicks: {{ u.clicks }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
